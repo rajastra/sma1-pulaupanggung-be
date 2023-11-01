@@ -27,6 +27,7 @@ exports.signup = catchAsync(async (req, res, next) => {
   const newUser = await User.create({
     name: req.body.name,
     email: req.body.email,
+    role: req.body.role,
     password: req.body.password,
   });
 
@@ -35,8 +36,6 @@ exports.signup = catchAsync(async (req, res, next) => {
 
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
-
-  console.log(email, password);
 
   if (!email || !password) {
     return next(new AppError('Please provide email and password', 400));

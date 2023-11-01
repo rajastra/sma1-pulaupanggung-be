@@ -19,7 +19,10 @@ app.use('*', (req, res, next) => {
 });
 const sequelize = require('./utils/database');
 
-const sync = async () => await sequelize.sync();
+const sync = async () =>
+  await sequelize.sync({
+    force: true,
+  });
 sync()
   .then(() => {
     console.log('Database synced successfully');
