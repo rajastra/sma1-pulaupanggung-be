@@ -57,7 +57,6 @@ exports.createOne = (Model) =>
 
 exports.getAll = (Model) =>
   catchAsync(async (req, res, next) => {
-    // Find the handicraft records that have the tags
     const docs = await Model.findAll();
 
     res.status(200).json({
