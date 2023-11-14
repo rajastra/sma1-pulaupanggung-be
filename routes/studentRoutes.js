@@ -3,6 +3,12 @@ const studentController = require('../controllers/studentController');
 
 const router = express.Router();
 
+router.post(
+  '/import',
+  studentController.uploadStudents,
+  studentController.importStudents
+);
+
 router
   .route('/')
   .get(studentController.getAllStudents)
