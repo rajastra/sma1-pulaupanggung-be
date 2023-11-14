@@ -41,8 +41,6 @@ exports.createBerita = catchAsync(async (req, res, next) => {
   const { title, description, kategori } = req.body;
   const { file } = req;
 
-  console.log(req.body);
-
   // Generate a unique filename for the uploaded file
   const filename = `${uuidv4()}${path.extname(file.originalname)}`;
 

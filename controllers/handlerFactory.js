@@ -31,9 +31,7 @@ exports.updateOne = (Model) =>
       return next(new AppError('No document found with that ID', 404));
     }
 
-    await doc.update({
-      name: req.body.name,
-    });
+    await doc.update(req.body);
 
     res.status(200).json({
       status: 'success',
