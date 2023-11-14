@@ -6,6 +6,8 @@ const userRouter = require('./routes/userRoutes');
 const teacherRouter = require('./routes/teacherRoutes');
 const beritaRouter = require('./routes/beritaRoutes');
 const kategoriRouter = require('./routes/kategoriRoutes');
+const studentRouter = require('./routes/studentRoutes');
+const classRouter = require('./routes/classRoutes');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errController');
 
@@ -19,6 +21,8 @@ app.use('/api/v1/users', userRouter);
 app.use('/api/v1/teachers', teacherRouter);
 app.use('/api/v1/beritas', beritaRouter);
 app.use('/api/v1/kategoris', kategoriRouter);
+app.use('/api/v1/classes', classRouter);
+app.use('/api/v1/students', studentRouter);
 
 app.use('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
