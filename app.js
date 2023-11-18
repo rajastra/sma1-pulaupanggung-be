@@ -14,7 +14,7 @@ const globalErrorHandler = require('./controllers/errController');
 const app = express();
 
 app.use(cors());
-app.use(morgan('dev'));
+if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 app.use(express.json({ limit: '10kb' }));
 
 app.use('/api/v1/users', userRouter);
@@ -29,10 +29,7 @@ app.use('*', (req, res, next) => {
 });
 const sequelize = require('./utils/database');
 
-const sync = async () =>
-  await sequelize.sync({
-    force: true,
-  });
+const sync = async () => await sequelize.sync();
 sync()
   .then(() => {
     console.log('Database synced successfully');
