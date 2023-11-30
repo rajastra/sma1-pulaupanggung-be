@@ -13,6 +13,7 @@ const globalErrorHandler = require('./controllers/errController');
 
 const app = express();
 
+// add cors
 app.use(cors());
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 app.use(express.json({ limit: '10kb' }));
