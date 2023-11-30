@@ -38,13 +38,13 @@ exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return next(new AppError('Please provide email and password', 400));
+    return next(new AppError('Mohon masukan email dan password anda', 400));
   }
 
   const user = await User.findOne({ where: { email: email } });
 
   if (!user || !(await user.matchPassword(password))) {
-    return next(new AppError('Incorrect email or password', 401));
+    return next(new AppError('Password atau email anda salah', 401));
   }
 
   createSendToken(user, 200, res);

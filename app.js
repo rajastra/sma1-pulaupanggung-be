@@ -16,7 +16,7 @@ const app = express();
 // add cors
 app.use(cors());
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
-app.use(express.json({ limit: '10kb' }));
+app.use(express.json());
 
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/teachers', teacherRouter);
