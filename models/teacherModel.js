@@ -35,6 +35,10 @@ const Teacher = sequelize.define(
       type: DataTypes.STRING,
       allowNull: true,
     },
+    jabatan: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   },
   { timestamps: false }
 );

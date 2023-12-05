@@ -47,6 +47,13 @@ exports.createBerita = catchAsync(async (req, res, next) => {
     kategoriObj = await Kategori.create({ name: kategori });
   }
 
+  console.log({
+    title,
+    description,
+    photo_url: url,
+    kategori_id: kategoriObj.id,
+  });
+
   const berita = await Berita.create({
     title,
     description,

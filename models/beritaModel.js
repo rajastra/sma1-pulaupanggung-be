@@ -25,17 +25,6 @@ const Berita = sequelize.define(
   { timestamps: false }
 );
 
-// create payload for berita
-/*
-{
-  "title": "Berita 1",
-  "description": "Deskripsi berita 1",
-  "photo_url": "https://storage.googleapis.com/bucket-polda/0f5b3c4b-5f6a-4d1e-8b2a-0d3b4e6d6e1c.jpg",
-  "kategori": "Kriminal"
-}
-
-*/
-
 Kategori.hasMany(Berita, { foreignKey: 'kategori_id' });
 Berita.belongsTo(Kategori, { foreignKey: 'kategori_id' });
 
