@@ -7,12 +7,12 @@ const teacherController = require('../controllers/teacherController');
 router
   .route('/')
   .get(teacherController.getAllTeachers)
-  .post(teacherController.createTeacher);
+  .post(teacherController.uploadGuruPhoto, teacherController.createTeacher);
 
 router
   .route('/:id')
   .get(teacherController.getTeacher)
-  .patch(teacherController.updateTeacher)
+  .patch(teacherController.uploadGuruPhoto, teacherController.updateTeacher)
   .delete(teacherController.deleteTeacher);
 
 module.exports = router;

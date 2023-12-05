@@ -31,17 +31,16 @@ const Teacher = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    photo: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    jabatan: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   },
   { timestamps: false }
 );
-
-// create example payload
-// {
-//   "nip": "1234567890",
-//   "email": "teacher@teacher",
-//   "name": "Teacher",
-//   "address": "Teacher Address",
-//   "phone_number": "081234567890"
-// }
 
 module.exports = Teacher;

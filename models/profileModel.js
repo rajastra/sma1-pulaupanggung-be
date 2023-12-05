@@ -1,23 +1,26 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../utils/database');
-const Kategori = require('./kategoriModel');
 
-const Berita = sequelize.define(
-  'Berita',
+const Profile = sequelize.define(
+  'Profile',
   {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
-    title: {
+    code: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
     description: {
       type: DataTypes.TEXT,
     },
-    photo_url: {
+    photo: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -25,7 +28,4 @@ const Berita = sequelize.define(
   { timestamps: false }
 );
 
-Kategori.hasMany(Berita, { foreignKey: 'kategori_id' });
-Berita.belongsTo(Kategori, { foreignKey: 'kategori_id' });
-
-module.exports = Berita;
+module.exports = Profile;
