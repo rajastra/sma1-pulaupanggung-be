@@ -1,42 +1,31 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../utils/database');
 
-const Teacher = sequelize.define(
-  'Teacher',
+const Profile = sequelize.define(
+  'Berita',
   {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
-    nip: {
+    code: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
     },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    address: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    phone_number: {
-      type: DataTypes.STRING,
-      allowNull: false,
+    description: {
+      type: DataTypes.TEXT,
     },
     photo: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
     },
   },
   { timestamps: false }
 );
 
-module.exports = Teacher;
+module.exports = Profile;

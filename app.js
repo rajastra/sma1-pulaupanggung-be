@@ -8,6 +8,7 @@ const beritaRouter = require('./routes/beritaRoutes');
 const kategoriRouter = require('./routes/kategoriRoutes');
 const studentRouter = require('./routes/studentRoutes');
 const classRouter = require('./routes/classRoutes');
+const profileRouter = require('./routes/profileRoutes');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errController');
 
@@ -24,13 +25,17 @@ app.use('/api/v1/beritas', beritaRouter);
 app.use('/api/v1/kategoris', kategoriRouter);
 app.use('/api/v1/classes', classRouter);
 app.use('/api/v1/students', studentRouter);
+app.use('/api/v1/profiles', profileRouter);
 
 app.use('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 const sequelize = require('./utils/database');
 
-const sync = async () => await sequelize.sync();
+const sync = async () =>
+  await sequelize.sync({
+    force: true,
+  });
 sync()
   .then(() => {
     console.log('Database synced successfully');

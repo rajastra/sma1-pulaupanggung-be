@@ -1,5 +1,5 @@
 const multer = require('multer');
-const Teacher = require('../models/teacherModel');
+const Profile = require('../models/profileModel');
 const factory = require('./handlerFactory');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
@@ -9,11 +9,11 @@ const upload = multer({
   storage: multer.memoryStorage(),
 });
 
-exports.uploadGuruPhoto = upload.single('photo');
+exports.uploadProfilePhoto = upload.single('photo');
 
-exports.getAllTeachers = factory.getAll(Teacher);
-exports.getTeacher = factory.getOne(Teacher);
-exports.createTeacher = catchAsync(async (req, res, next) => {
+exports.getAllProfile = factory.getAll(Profile);
+exports.getProfile = factory.getOne(Profile);
+exports.createProfile = catchAsync(async (req, res, next) => {
   const data = req.body;
   const { file } = req;
 
@@ -26,24 +26,24 @@ exports.createTeacher = catchAsync(async (req, res, next) => {
     data.photo = uploadedFile.secure_url;
   }
 
-  const teacher = await Teacher.create(data);
+  const profile = await Profile.create(data);
 
   res.status(201).json({
     status: 'success',
     data: {
-      teacher,
+      profile,
     },
   });
 });
 
-exports.updateTeacher = catchAsync(async (req, res, next) => {
+exports.updateProfile = catchAsync(async (req, res, next) => {
   const data = req.body;
   const { file } = req;
 
   // Find the berita record by ID
-  const teacher = await Teacher.findByPk(req.params.id);
+  const profile = await Profile.findByPk(req.params.id);
 
-  if (!teacher) {
+  if (!profile) {
     return next(new AppError('No document found with that ID', 404));
   }
 
@@ -51,7 +51,7 @@ exports.updateTeacher = catchAsync(async (req, res, next) => {
   if (file) {
     const uploadedFile = await fileHelper.upload(
       file.buffer,
-      teacher.photo_url
+      profile.photo_url
     );
     if (!uploadedFile) {
       return next(new AppError('Error uploading file', 400));
@@ -60,12 +60,12 @@ exports.updateTeacher = catchAsync(async (req, res, next) => {
     data.photo = uploadedFile.secure_url;
   }
 
-  await teacher.update(data);
+  await profile.update(data);
 
   res.status(200).json({
     status: 'success',
-    data: teacher,
+    data: profile,
   });
 });
 
-exports.deleteTeacher = factory.deleteOne(Teacher);
+exports.deleteProfile = factory.deleteOne(Profile);
