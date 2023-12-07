@@ -8,6 +8,12 @@ const userController = require('../controllers/userController');
 router.post('/signup', authController.signup);
 router.post('/login', authController.login);
 
+router.patch(
+  '/update-photo/:id',
+  userController.uploadUserPhoto,
+  userController.updateUserPhoto
+);
+
 router
   .route('/')
   .get(userController.getAllUsers)

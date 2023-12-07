@@ -1,7 +1,15 @@
+const multer = require('multer');
 const User = require('../models/userModel');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const factory = require('./handlerFactory');
+const fileHelper = require('../utils/fileHelper');
+
+const upload = multer({
+  storage: multer.memoryStorage(),
+});
+
+exports.uploadUserPhoto = upload.single('photo');
 
 const filterObj = (obj, ...allowedFields) => {
   const newObj = {};
@@ -55,12 +63,38 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
   });
 });
 
-// exports.createUser = (req, res) => {
-//   res.status(500).json({
-//     status: 'error',
-//     message: 'This route is not yet defined please use /signup instead',
-//   });
-// };
+// update user photo
+exports.updateUserPhoto = catchAsync(async (req, res, next) => {
+  const { file } = req;
+
+  // Find the user record by ID
+  const user = await User.findByPk(req.params.id);
+
+  const data = {};
+
+  if (!user) {
+    return next(new AppError('No document found with that ID', 404));
+  }
+
+  // Update the user record with the new data
+  if (file) {
+    const uploadedFile = await fileHelper.upload(file.buffer, user.photo_url);
+    if (!uploadedFile) {
+      return next(new AppError('Error uploading file', 400));
+    }
+
+    data.photo = uploadedFile.secure_url;
+  }
+
+  await user.update(data);
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      user,
+    },
+  });
+});
 
 exports.getAllUsers = factory.getAll(User);
 exports.getUser = factory.getOne(User);
